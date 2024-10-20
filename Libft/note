@@ -1,0 +1,53 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    note.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rgencer <rgencer@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/12 17:25:44 by rgencer           #+#    #+#              #
+#    Updated: 2024/10/13 10:38:34 by rgencer          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+-strlcat fonksiyonunu incele ve anla
+-mem fonksiyonlarına yeniden bak
+
+-.h uzantuılı dosya bir header dosyasıdır bu dosyanın ana mamacı herbir dosyada include kullanmak 
+yerine bir pakert olarak tüm işlemleri hızlı bir şekilde gerçekleştirmöeyi sağlkar.
+
+-Makefile dosyası oluşturulan c kodlarınmı tek seferde hatasız ve gerekli flaglar ile çalıştırmaya yarayan
+bir derleme dosyasıdır.
+
+(!DOĞRULANMAYA İHTİYAÇ BİLGİ)
+-header dosyasında kütüphane eklediğimizde heryerde ortak olarak kullandığımız bir kütüphane olduğuna 
+dikkat etmemiz gerekmektedir.
+
+NAME = libft.a						kütüphane adlandırılması
+
+SRCS = ft_atoi.c ft_bzero.c..		kaynak tüm kodların listesi
+
+OBJS = $(SRCS:.c=.o)				objelerin kaynak dosyalarının .o uzantılı hallerine dönüştürerek oluşturur
+
+CC = gcc							kullanılacak derleyiciti belirtir
+
+CFLAGS = -Wall -Wextra -Werror		derleme sırasında kullanılacak bayraklar  tüm uyarıları ek uyarıları göster ve uyarıları hata olarak göster.
+
+RM = rm -f							dosya silme komutu, dosyaları zorla silmek için kullanılır (NEDEN BU GCC DOSYAMIZDA YER ALMAKTADIR.)
+
+
+$(NAME): $(OBJS)					name ye obks bağımlılıklarını veriri
+
+all: $(NAME)						bğımlılıklar verirdikten sonra varsayılan olarak çalışacak olan kural name dir
+
+clean:								varsayılan ve bağımlılıklar ayarladıktan sonra objs dosyalarını silmeriz
+	$(RM) $(OBJS)
+
+fclean: clean						Bu kural, clean kuralını çalıştırdıktan sonra kütüphane dosyasını da siler. make fclean komutu çalıştırıldığında, hem nesne dosyaları hem de libft.a dosyası silinir.
+	$(RM) $(NAME)
+
+re: fclean all						Bu kural, kütüphaneyi tamamen temizleyip yeniden derlemek için kullanılır. make re komutu çalıştırıldığında, önce fclean ardından all kuralı çalıştırılır.
+
+.PHONY: all clean fclean re			Bu satır, belirtilen hedeflerin "phony" (gerçek dosya değil) olduğunu belirtir. Yani, bu hedefler bir dosya olarak mevcut olsalar bile, her zaman çalıştırılacaklardır. Bu, make'in bu hedeflerin gerçekten çalıştırılmasını sağlamasına yardımcı olur.
+
+
